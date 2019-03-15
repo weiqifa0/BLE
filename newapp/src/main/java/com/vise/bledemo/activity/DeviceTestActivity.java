@@ -142,6 +142,13 @@ public class DeviceTestActivity extends AppCompatActivity {
             @Override
             public void onDisconnect(boolean isActive) {
                 ViseLog.i(">>> onDisconnect " + isActive);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ViseLog.i(".");
+                        startScan();
+                    }
+                });
                 //startScan();
             }
         });
