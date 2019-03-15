@@ -28,6 +28,7 @@ import com.vise.bledemo.common.ToastUtil;
 import com.vise.bledemo.event.CallbackDataEvent;
 import com.vise.bledemo.event.ConnectEvent;
 import com.vise.bledemo.event.NotifyDataEvent;
+import com.vise.log.ViseLog;
 import com.vise.xsnow.cache.SpCache;
 import com.vise.xsnow.event.BusManager;
 import com.vise.xsnow.event.Subscribe;
@@ -340,6 +341,8 @@ public class DeviceControlActivity extends AppCompatActivity {
                     ((EditText) findViewById(R.id.show_write_characteristic)).setText(characteristic.getUuid().toString());
                     BluetoothDeviceManager.getInstance().bindChannel(mDevice, PropertyType.PROPERTY_WRITE, service.getUuid(), characteristic.getUuid(), null);
                 } else if ((charaProp & BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
+                    ViseLog.i(">>> showGattServices " + service.getUuid());
+                    ViseLog.i(">>> showGattServices " + characteristic.getUuid());
                     BluetoothDeviceManager.getInstance().bindChannel(mDevice, PropertyType.PROPERTY_READ, service.getUuid(), characteristic.getUuid(), null);
                     BluetoothDeviceManager.getInstance().read(mDevice);
                 }

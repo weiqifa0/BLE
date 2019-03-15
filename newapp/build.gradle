@@ -24,4 +24,5 @@ dependencies {
     compile 'com.android.support:design:23.0.1'
     compile 'com.vise.xiaoyaoyou:xsnow:2.1.3'
     compile project(':baseble')
+    compile 'com.android.support.constraint:constraint-layout:1.1.3'
 }

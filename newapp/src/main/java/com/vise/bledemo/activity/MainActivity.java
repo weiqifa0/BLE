@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ViseLog.getLogConfig().configAllowLog(true);//配置日志信息
         ViseLog.plant(new LogcatTree());//添加Logcat打印信息
-        BluetoothDeviceManager.getInstance().init(this);
+        BluetoothDeviceManager.getInstance().init(this);//初始化蓝牙
         BusManager.getBus().register(this);
         init();
     }
@@ -75,8 +75,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, DeviceScanActivity.class);
+                Intent intent = new Intent(MainActivity.this, DeviceTestActivity.class);
                 startActivity(intent);
+                return;
             }
         });
 
@@ -93,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //modify by weiqifa start
+        Intent intent = new Intent(MainActivity.this, DeviceTestActivity.class);
+        startActivity(intent);
+        //modify by weiqifa end
     }
 
     @Subscribe

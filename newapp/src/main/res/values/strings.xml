@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">BLE</string>
+    <!--指定搜索的蓝牙设备名字-->
+    <string name="find_ble_name">IDP100_BLE_TEST</string>
+
+    <!--控件名字-->
+    <string name="app_name">BLE自动测试V1.0</string>
     <string name="invalid_device_data">Invalid Device Data!</string>
     <string name="no_data">No data</string>
     <string name="not_supported">Not supported</string>
@@ -61,10 +65,11 @@
     <string name="label_send">发送</string>
 
     <string name="about_dialog_text">\n
-        项目简介：Android BLE基础操作框架，基于回调，操作简单。包含扫描、多连接、广播包解析、服务读写及通知等功能。\n
-        项目地址：https://github.com/xiaoyaoyou1212/BLE\n
-        作者：胡伟\n
-        网站：http://www.huwei.tech\n
-        博客：http://blog.csdn.net/xiaoyaoyou1212
+        项目简介：BLE测试\n
+        项目地址：https://blog.csdn.net/weiqifa0\n
     </string>
+
+    <!--自己写的测试Activity-->
+    <string name="lable_device_test">开始测试</string>
+    <string name="lable_main_show">请点击右下角的红色按钮开始测试</string>
 </resources>

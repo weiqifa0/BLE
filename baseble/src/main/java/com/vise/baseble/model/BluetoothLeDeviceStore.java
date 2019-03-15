@@ -1,5 +1,7 @@
 package com.vise.baseble.model;
 
+import com.vise.log.ViseLog;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -25,8 +27,10 @@ public class BluetoothLeDeviceStore {
             return;
         }
         if (mDeviceMap.containsKey(device.getAddress())) {
+            ViseLog.i(">>> addDevice"+device.getAddress()+device);
             mDeviceMap.get(device.getAddress()).updateRssiReading(device.getTimestamp(), device.getRssi());
         } else {
+            ViseLog.i(">>> addDevice"+device.getAddress()+device);
             mDeviceMap.put(device.getAddress(), device);
         }
     }
