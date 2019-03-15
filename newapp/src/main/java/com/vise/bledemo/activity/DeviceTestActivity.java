@@ -42,9 +42,9 @@ public class DeviceTestActivity extends AppCompatActivity {
     private static final UUID serviceUUID = UUID.fromString("00001805-0000-1000-8000-00805f9b34fb");//00001805-0000-1000-8000-00805f9b34fb
     private static final UUID characteristicUUID= UUID.fromString("00002a2b-0000-1000-8000-00805f9b34fb");//00002a2b-0000-1000-8000-00805f9b34fb
     private static final UUID descriptorUUID = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
+    private static String MAC;
 
-
-    private TextView textShow = null;
+    private TextView labletextShow = null;
     private DeviceMirror mDeviceMirror = null;
 
     //设备扫描结果展示适配器
@@ -83,7 +83,7 @@ public class DeviceTestActivity extends AppCompatActivity {
      * 断开连接
      * */
     private void disconnect(){
-        if(mDeviceMirror!= null) {
+        if(mDeviceMirror != null) {
             ViseBle.getInstance().disconnect(mDeviceMirror.getBluetoothLeDevice());
             ViseLog.i("...");
         }
@@ -93,8 +93,8 @@ public class DeviceTestActivity extends AppCompatActivity {
      * 初始化
      */
     private void init() {
-        if(textShow != null)
-            textShow = (TextView) findViewById(R.id.test_show);
+        labletextShow = (TextView) findViewById(R.id.test_show);
+        labletextShow.setText("");
         startScan();
     }
 
@@ -123,6 +123,14 @@ public class DeviceTestActivity extends AppCompatActivity {
                 if(mDeviceMirror == null) {
                     mDeviceMirror = deviceMirror;
                 }
+                if((MAC == null)||(MAC!=deviceMirror.getBluetoothLeDevice().getDevice().getAddress())){
+                    MAC = deviceMirror.getBluetoothLeDevice().getDevice().getAddress();
+                    ViseLog.i(MAC);
+                }else{
+                    ViseBle.getInstance().disconnect(mDeviceMirror.getBluetoothLeDevice());
+                    ViseLog.i("断开连接...");
+                    testViewShowUi("该设备已经测试，断开连接~~");
+                }
                 bleReadData(deviceMirror);
             }
 
@@ -134,6 +142,7 @@ public class DeviceTestActivity extends AppCompatActivity {
             @Override
             public void onDisconnect(boolean isActive) {
                 ViseLog.i(">>> onDisconnect " + isActive);
+                //startScan();
             }
         });
     }
@@ -169,7 +178,8 @@ public class DeviceTestActivity extends AppCompatActivity {
                 ViseLog.i(">>> " + HexUtil.encodeHexStr(data));
                 ViseLog.i(">>> " + year + "年"+month+"月"+day+"号"+hours+"时"+minutes+"分"+seconds+"秒，星期"+week);
                 ViseLog.i("-----------------------------------------------------------------------------");
-                //doForSuccess(bluetoothLeDevice,textShow);
+                ViseBle.getInstance().disconnect(mDeviceMirror.getBluetoothLeDevice());
+                doForTestSuccess(bluetoothLeDevice,textShow);
             }
 
             @Override
@@ -204,11 +214,12 @@ public class DeviceTestActivity extends AppCompatActivity {
     /**
      * 成功获取数据后的处理
      * */
-    private void doForSuccess(BluetoothLeDevice bluetoothLeDevice,String Data){
+    private void doForTestSuccess(BluetoothLeDevice bluetoothLeDevice,String Data){
         testViewShowUi(Data);
         ViseBle.getInstance().disconnect(bluetoothLeDevice);
-        stopScan();
+        disconnect();
         ViseLog.i(".");
+        testViewShowUi("测试完成断开连接~~~");
     }
     /**
      * UI显示 要用线程来显示，要不然会出现问题
@@ -218,7 +229,7 @@ public class DeviceTestActivity extends AppCompatActivity {
             @Override
             public void run() {
                 ViseLog.i(".");
-                textShow.setText(Data);
+                labletextShow.append(Data+"\n");
             }
         });
     }
