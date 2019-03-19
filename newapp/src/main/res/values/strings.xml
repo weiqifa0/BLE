@@ -72,4 +72,5 @@
     <!--自己写的测试Activity-->
     <string name="lable_device_test">开始测试</string>
     <string name="lable_main_show">请点击右下角的红色按钮开始测试</string>
+    <string name="button_text">复位</string>
 </resources>

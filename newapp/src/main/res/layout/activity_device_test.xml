@@ -15,5 +15,8 @@
             android:layout_row="0"
             android:text="@string/lable_device_test"
             android:textSize="12sp"
+            android:gravity="bottom"
+            android:layout_weight="1"
+            android:scrollbars="vertical"
             android:textStyle="bold"/>
 </LinearLayout>
