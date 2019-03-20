@@ -170,6 +170,7 @@ public class DeviceTestActivity extends AppCompatActivity {
             public void onConnectFailure(BleException exception) {
                 ViseLog.i("---------------------------------->>> onConnectFailure " );
                 testViewShowUi("连接蓝牙广播失败~~~");
+                startScan();
             }
 
             @Override
@@ -247,7 +248,10 @@ public class DeviceTestActivity extends AppCompatActivity {
                 ViseLog.i("-----------------------------------------------------------------------------");
 
                 doForTestSuccess(bluetoothLeDevice,textShow);
-                ViseBle.getInstance().disconnect(deviceMirror.getBluetoothLeDevice());
+                if(ViseBle.getInstance().isConnect(bluetoothLeDevice)) {
+                    testViewShowUi("断开连接~~~");
+                    ViseBle.getInstance().disconnect(deviceMirror.getBluetoothLeDevice());
+                }
             }
 
             @Override
@@ -296,7 +300,7 @@ public class DeviceTestActivity extends AppCompatActivity {
         //disconnect();
         //new Thread(BleDisconnect).start();
         ViseLog.i(".");
-        testViewShowUi("测试完成断开连接~~~");
+        testViewShowUi("测试完成~~~");
     }
     /**
      * UI显示 要用线程来显示，要不然会出现问题
