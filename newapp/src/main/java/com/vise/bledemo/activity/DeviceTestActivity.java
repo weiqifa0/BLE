@@ -128,12 +128,22 @@ public class DeviceTestActivity extends AppCompatActivity {
         startScan();
     }
 
+    private void clearTextView(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ViseLog.i(".");
+                labletextShow.setText("");
+            }
+        });
+    }
     /**
      * 开始扫描
      */
     private void startScan() {
         ViseLog.i("-------------------------->startScan");
-        testViewShowUi("b查找蓝牙广播...");
+        clearTextView();
+        testViewShowUi("开始测试\n查找蓝牙广播...");
         //启动线程
         new Thread(BleScanThread).start();
     }
@@ -177,7 +187,7 @@ public class DeviceTestActivity extends AppCompatActivity {
             public void onDisconnect(boolean isActive) {
                 ViseLog.i("---------------------------------->>> onDisconnect " );
                 intConnectCount+=1;
-                testViewShowUi("["+intConnectCount+"]"+"断开蓝牙~~~e\n");
+                testViewShowUi("["+intConnectCount+"]"+"断开蓝牙~~~\n->测试完成<-\n");
                 startScan();
             }
         });
